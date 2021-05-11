@@ -65,13 +65,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'profile')
-    username = models.CharField(max_length = 255, blank = True)
-    full_name = models.CharField(max_length = 255, blank = True)
-    address = models.TextField(max_length = 300, blank = True)
-    city = models.CharField(max_length = 86, blank = True)
-    zipcode = models.CharField(max_length = 6, blank = True)
-    country = models.CharField(max_length = 60, blank = True)
-    phone = models.CharField(max_length = 10, blank = True)
+    username = models.CharField(max_length = 255, null = True, blank = True)
+    full_name = models.CharField(max_length = 255, null = True, blank = True)
+    address = models.TextField(max_length = 300, null = True, blank = True)
+    city = models.CharField(max_length = 86, null = True, blank = True)
+    zipcode = models.CharField(max_length = 6, null = True, blank = True)
+    country = models.CharField(max_length = 60, null = True, blank = True)
+    phone = models.CharField(max_length = 10, null = True, blank = True)
     date_joined = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
