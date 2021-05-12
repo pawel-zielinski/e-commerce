@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="containter my-5">
+  <div class="">
+    <div class="row">
+      <aside class="">
+        <article class="gallery-wrap">
+          <div class="">
+            <a href="#"><img src="/media/{{ object.mainimage }}" style="width: 475px;"></a>
+          </div>
+        </article>
+      </aside>
+      <aside class="col-sm-7">
+        <article class="card-body p-5">
+          <h3 class="">{{ object.name }}</h3>
+          <p class="">
+            <span class="price h3 text-warning">
+              <span class="">USD</span>
+              <span class="">{{ object.price }}</span>
+            </span>
+          </p>
+          <dl class="item-property">
+            <dt>Category</dt>
+            <font color="red"> {{ object.category }}</font> <hr>
+            <dt>Preview</dt>
+            <dd>
+              <p>{{ object.preview_text|linebreaks }}</p>
+            </dd>
+          </dl>
+          <a href="#" class="btn btn-lg btn-outline-primary text-uppercase">
+            <i class="fa fa-shopping-cart"></i> Add To Cart
+          </a>
+        </article>
+      </aside>
+      <dt>Description</dt>
+      <p>{{ object.details_text|linebreaks }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
