@@ -27,7 +27,7 @@
               <p>{{ object.preview_text|linebreaks }}</p>
             </dd>
           </dl>
-          <a href="#" class="btn btn-lg btn-outline-primary text-uppercase">
+          <a href="{% url 'Order_API:add' pk=object.pk %}" class="btn btn-lg btn-outline-primary text-uppercase">
             <i class="fa fa-shopping-cart"></i> Add To Cart
           </a>
         </article>
