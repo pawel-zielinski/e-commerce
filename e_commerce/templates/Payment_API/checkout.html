@@ -12,7 +12,7 @@
           <form method="POST">
             {{ form|crispy }}
             {% csrf_token %}
-            <button type="submit"class="btn btn-primary btn-sm">Save Address</button>
+            <button type="submit"class="btn btn-primary btn-md">Save Address</button>
           </form>
         </div>
       </div>
@@ -33,6 +33,9 @@
           <span class="float-right"><b>$ {{ order_total|floatformat:2 }}</b></span>
         </div>
       </div>
+      {% if saved_address.is_fully_filled %}
+        <br><a href="#" class="btn btn-warning btn-md">Continue to payment</a>
+      {% endif %}
     </div>
   </div>
 </div>

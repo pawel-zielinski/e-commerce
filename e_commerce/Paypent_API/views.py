@@ -18,10 +18,18 @@ def checkout(request):
         if form.is_valid():
             form.save()
             form = BillingForm(instance = saved_address)
-            messages.success(request, "Everything seems to be OK. Lets continue!")
+            if saved_address.is_fully_filled():
+                messages.success(request, "Everything seems to be OK. Lets continue!")
+            else:
+                messages.success(request, "Please, fill up all the information to make a payment")
 
     order_qs = Order.objects.filter(user = request.user, ordered = False)
     order_items = order_qs[0].orderitems.all()
     order_total = order_qs[0].get_totals()
 
-    return render(request, 'Payment_API/checkout.html', context = {'form' : form, 'order_items' : order_items, 'order_total' : order_total})
+    return render(request, 'Payment_API/checkout.html', context = {
+        'form' : form,
+        'order_items' : order_items,
+        'order_total' : order_total,
+        'saved_address' : saved_address,
+    })
