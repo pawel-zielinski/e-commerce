@@ -34,7 +34,7 @@
         </div>
       </div>
       {% if saved_address.is_fully_filled %}
-        <br><a href="#" class="btn btn-warning btn-md">Continue to payment</a>
+        <br><a href="{% url 'Paypent_API:payment' %}" class="btn btn-warning btn-md">Continue to payment</a>
       {% endif %}
     </div>
   </div>
