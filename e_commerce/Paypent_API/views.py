@@ -74,7 +74,7 @@ def payment(request):
 
     mypayment.set_product_integration(
         total_amount = Decimal(order_total),
-        currency = 'USD',
+        currency = 'BDT',
         product_category = 'Mixed',
         product_name = order_items,
         num_of_item = order_item_count,
@@ -111,13 +111,28 @@ def complete(request):
     if request.method == 'POST' or request.method == 'post':
         payment_data = request.POST
         status = payment_data['status']
-        val_id = payment_data['val_id']
-        tran_id = payment_data['tran_id']
-        bank_tran_id = payment_data['bank_tran_id']
-
         if status == 'VALID':
+            val_id = payment_data['val_id']
+            tran_id = payment_data['tran_id']
             messages.success(request, "Your payment was completed successfully!")
+            return HttpResponseRedirect(reverse('Paypent_API:purchase', kwargs = {'val_id' : val_id, 'tran_id' : tran_id}))
         elif status == 'FAILED':
             messages.warning(request, "Your payment was declined. Please try again!")
 
     return render(request, 'Payment_API/complete.html', context = {})
+
+@login_required
+def purchase(request, val_id, tran_id):
+    order_qs = Order.objects.filter(user = request.user, ordered = False)
+    order = order_qs[0]
+    order.ordered = True
+    order.order_id = tran_id
+    order.payment_id = val_id
+    order.save()
+
+    cart_items = Cart.objects.filter(user = request.user, purchased = False)
+    for item in cart_items:
+        item.purchased = True
+        item.save()
+
+    return HttpResponseRedirect(reverse('Shop_API:home'))
