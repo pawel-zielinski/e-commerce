@@ -136,3 +136,12 @@ def purchase(request, val_id, tran_id):
         item.save()
 
     return HttpResponseRedirect(reverse('Shop_API:home'))
+
+@login_required
+def order_view(request):
+    try:
+        orders = Order.objects.filter(user = request.user, ordered = True)
+        context = {'orders' : orders}
+    except:
+        messages.warning(request, "Oops! Something went wrong!")
+    return render(request, 'Payment_API/order.html', context)
